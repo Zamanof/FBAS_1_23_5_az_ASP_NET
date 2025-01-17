@@ -1,0 +1,34 @@
+﻿@page
+@using ASP_NET_03._Dependency_injection___services.Models
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+    var products = ViewData["Products"] as IEnumerable<Product>;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Products</h1>
+    <form method="post" asp-route="/">
+        <p><input type="text" name="name" /></p>
+        <p><input type="text" name="description" /></p>
+        <p><input type="submit" value="Add product" /></p>
+    </form>
+
+    @if (products!.Any())
+    {
+        <div>
+            <ol>
+                @foreach (var product in products!)
+                {
+                    <li><strong>@product.Name</strong> -  <em>@product.Description</em></li>
+
+                }
+            </ol>
+        </div>
+    }
+    else
+    {
+        <div>No Data</div>
+    }
+
+</div>
