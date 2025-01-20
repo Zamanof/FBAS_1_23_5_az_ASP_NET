@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ASO_NET_04._Products_MVC_Scaffold.Data;
 using ASO_NET_04._Products_MVC_Scaffold.Models;
 
-namespace ASP_NET_04._Products_MVC_Scaffold
+namespace ASP_NET_04._Products_MVC_Scaffold.Controllers
 {
     public class ProductsController : Controller
     {
