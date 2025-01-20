@@ -1,0 +1,26 @@
+﻿@model ASO_NET_04._Products_MVC.Models.Product
+
+@{
+    ViewData["Title"] = "Product Create";
+}
+
+<h1>Edit product</h1>
+
+<div>
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="Id"/>
+        <p>
+            <label asp-for="Name"></label>
+            <br />
+            <input asp-for="Name" />
+        </p>
+        <p>
+            <label asp-for="Price"></label>
+            <br />
+            <input asp-for="Price" />
+        </p>
+        <p>
+            <input type="submit" value="Edit" />
+        </p>
+    </form>
+</div>

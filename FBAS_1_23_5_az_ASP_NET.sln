@@ -23,11 +23,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASP NET 02. Dependency Inje
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ASP NET 03", "ASP NET 03", "{91C1C6D4-4DA7-47B6-BA0B-A1137E7E206C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP NET 03. Dependency injection - services", "ASP NET 03. Dependency injection - services\ASP NET 03. Dependency injection - services.csproj", "{E836AB94-6DEB-42A8-AD34-249AB8869DB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASP NET 03. Dependency injection - services", "ASP NET 03. Dependency injection - services\ASP NET 03. Dependency injection - services.csproj", "{E836AB94-6DEB-42A8-AD34-249AB8869DB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP NET 03. Razor Pages", "ASP NET 03. Razor Pages\ASP NET 03. Razor Pages.csproj", "{B1A7A7E5-D623-442A-B4C7-3961C9D3BDC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASP NET 03. Razor Pages", "ASP NET 03. Razor Pages\ASP NET 03. Razor Pages.csproj", "{B1A7A7E5-D623-442A-B4C7-3961C9D3BDC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP NET 03. Razor pages Product site", "ASP NET 03. Razor pages Product site\ASP NET 03. Razor pages Product site.csproj", "{D4870ABC-D2DE-43D1-B1DE-9700B5B38CBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASP NET 03. Razor pages Product site", "ASP NET 03. Razor pages Product site\ASP NET 03. Razor pages Product site.csproj", "{D4870ABC-D2DE-43D1-B1DE-9700B5B38CBA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ASP NET 04", "ASP NET 04", "{A5DF86CA-42B4-4497-8E07-D7ABCB0754A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASO NET 04. Products MVC", "ASO NET 04. Products MVC\ASO NET 04. Products MVC.csproj", "{794B23E1-6E77-432D-B3FF-C8645EEA5CDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP NET 04. Products MVC Scaffold", "ASP NET 04. Products MVC Scaffold\ASP NET 04. Products MVC Scaffold.csproj", "{CC53EA7F-4187-4847-AF0D-71B5F5C98A95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +81,14 @@ Global
 		{D4870ABC-D2DE-43D1-B1DE-9700B5B38CBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4870ABC-D2DE-43D1-B1DE-9700B5B38CBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4870ABC-D2DE-43D1-B1DE-9700B5B38CBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{794B23E1-6E77-432D-B3FF-C8645EEA5CDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{794B23E1-6E77-432D-B3FF-C8645EEA5CDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{794B23E1-6E77-432D-B3FF-C8645EEA5CDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{794B23E1-6E77-432D-B3FF-C8645EEA5CDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC53EA7F-4187-4847-AF0D-71B5F5C98A95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC53EA7F-4187-4847-AF0D-71B5F5C98A95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC53EA7F-4187-4847-AF0D-71B5F5C98A95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC53EA7F-4187-4847-AF0D-71B5F5C98A95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +104,8 @@ Global
 		{E836AB94-6DEB-42A8-AD34-249AB8869DB8} = {91C1C6D4-4DA7-47B6-BA0B-A1137E7E206C}
 		{B1A7A7E5-D623-442A-B4C7-3961C9D3BDC8} = {91C1C6D4-4DA7-47B6-BA0B-A1137E7E206C}
 		{D4870ABC-D2DE-43D1-B1DE-9700B5B38CBA} = {91C1C6D4-4DA7-47B6-BA0B-A1137E7E206C}
+		{794B23E1-6E77-432D-B3FF-C8645EEA5CDB} = {A5DF86CA-42B4-4497-8E07-D7ABCB0754A4}
+		{CC53EA7F-4187-4847-AF0D-71B5F5C98A95} = {A5DF86CA-42B4-4497-8E07-D7ABCB0754A4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CD211760-95F4-488E-A4E3-95868447BA2E}

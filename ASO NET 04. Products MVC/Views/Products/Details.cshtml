@@ -1,0 +1,22 @@
+﻿@model ASO_NET_04._Products_MVC.Models.Product
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+<h1>Details</h1>
+<dl>
+    <dt>
+        @Html.DisplayNameFor(prod=> prod.Name)
+    </dt>
+    <dd>
+        @Html.DisplayFor(prod => prod.Name)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(prod => prod.Price)
+    </dt>
+    <dd>
+        @Html.DisplayFor(prod => prod.Price)
+    </dd>
+</dl>
+<a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
+<a asp-action="Index">Index</a>
