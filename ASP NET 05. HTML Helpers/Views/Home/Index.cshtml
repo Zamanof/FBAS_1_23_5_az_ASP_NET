@@ -1,0 +1,94 @@
+﻿@model ASP_NET_05._HTML_Helpers.Models.User
+@using ASP_NET_05._HTML_Helpers.HtmlHelpers
+@{
+    ViewData["Title"] = "Home Page";
+    var students = new List<string>
+    {
+        "Hikmet",
+        "Seymur",
+        "Elvin",
+        "Semed"
+    };
+
+    var users = new List<User>
+    {
+        new User{Id=1, Login="JeffBezos", Password="@m@z0n"},
+        new User{Id=2, Login="MarkFacebook", Password="123456"},
+        new User{Id=3, Login="ElMask", Password="XHA12"},
+        new User{Id=47, Login="Trump45", Password="Trump45"},
+        new User{Id=47, Login="Trump47", Password="Trump47"}
+
+    };
+}
+
+<div>
+    @* <form method="get" action="/Home/Privacy">
+        <input type="hidden" value="1" name="Id"/>
+        <p>
+            <label for="Login">Login</label>
+        </p>
+        <p>
+            <input type="text" name="Login"/>
+        </p>
+        <p>
+            <label for="Password">Password</label>
+        </p>
+        <p>
+            <input type="password" name="Password" />
+        </p>
+        <p>
+            <input type="submit" value="Send"/>
+        </p>
+    </form> *@
+
+    @* @using (@Html.BeginForm("Privacy", "Home", FormMethod.Get))
+    {
+        @Html.Hidden("Id", 15)
+        <p>
+            @Html.LabelFor(m=>m.Login)
+        </p>
+        <p>
+            @Html.TextBox("Login")
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Password)
+        </p>
+        <p>
+            @Html.Password("Password")
+        </p>
+        <p>
+            <input type="submit" value="Send"/>
+        </p>
+        <p>
+            @Html.ListBox("Students", new MultiSelectList(students))
+        </p>
+        <p>
+            @Html.DropDownList("Student", new SelectList(students))
+        </p>
+        <p>
+            @Html.Label("C++")
+            @Html.RadioButton("Language", "C++")
+        </p>
+        <p>
+            @Html.Label("C#")
+            @Html.RadioButton("Language", "C#")
+        </p>
+        <p>
+            @Html.Label("Python")
+            @Html.RadioButton("Language", "Python")
+        </p>
+    } *@
+  
+    <ol style="color: #ff00ff; font-size: 50px;">
+        @foreach(var st in students)
+        {
+            <li>@st</li>
+        }
+    </ol>
+
+@*     @Html.ListFor(students, "ol", "#ff00ff", "50")
+ *@
+
+ @Html.ListFor(users, "ul", "blue", "25")
+
+</div>
