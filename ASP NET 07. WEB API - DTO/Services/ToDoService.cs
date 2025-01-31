@@ -14,59 +14,49 @@ public class ToDoService : IToDoService
 
     public Task<ToDoItemDto> ChangeToDoItemStatusAsync(int id, bool isCompleted)
     {
-        throw new NotImplementedException();
+        var toDo = _context.ToDoItems.FirstOrDefault(x => x.Id == id);
+        if (toDo is null) return null!;
+        toDo.IsCompleted = isCompleted;
+        toDo.UpdatedAt = DateTime.UtcNow;
+        _context.SaveChanges();
+        return Task.FromResult(ConvertToDoItemDto(toDo));
     }
 
     public Task<ToDoItemDto> CreateToDoAsync(CreateToDoItemRequest request)
     {
-        var item = new ToDoItemDto()
+        var item = new ToDoItem()
         {
             Text = request.Text,
             CreatedAt = DateTime.UtcNow,
+            UpdatedAt = DateTime.UtcNow,
             IsCompleted = false
         };
-
-        var toDo = new ToDoItem()
-        {
-            Text = request.Text,
-            CreatedAt = DateTime.UtcNow,
-            IsCompleted = false,
-            UpdatedAt = DateTime.UtcNow
-        };
-        _context.ToDoItems.Add(toDo);
+        _context.ToDoItems.Add(item);
         _context.SaveChanges();
-        return Task.FromResult(item);
+        return Task.FromResult(ConvertToDoItemDto(item));
     }
 
     public Task<ToDoItemDto> GetToDoItemAsync(int id)
     {
         var toDo = _context.ToDoItems.FirstOrDefault(t => t.Id == id);
-        var item = new ToDoItemDto()
-        {
-            Id = toDo.Id,
-            Text = toDo.Text,
-            CreatedAt = toDo.CreatedAt,
-            IsCompleted = toDo.IsCompleted,
-        };
-        return Task.FromResult(item)!;
+        return Task.FromResult(ConvertToDoItemDto(toDo!))!;
     }
 
     public Task<IEnumerable<ToDoItemDto>> GetToDoItemsAsync()
     {
         var todo = _context.ToDoItems.ToList();
-        var items = new List<ToDoItemDto>();
-        foreach (var toDo in todo)
-        {
-            var item = new ToDoItemDto()
-            {
-                Id = toDo.Id,
-                Text = toDo.Text,
-                CreatedAt = toDo.CreatedAt,
-                IsCompleted = toDo.IsCompleted,
-            };
-            items.Add(item);
-        }
+        return Task.FromResult(todo.Select(ConvertToDoItemDto));
+    }
 
-        return Task.FromResult<IEnumerable<ToDoItemDto>>(items);
+    private ToDoItemDto ConvertToDoItemDto(ToDoItem item)
+    {
+        var toDoItemDto = new ToDoItemDto()
+        {
+            Id = item.Id,
+            Text = item.Text,
+            CreatedAt = item.CreatedAt,
+            IsCompleted = item.IsCompleted
+        };
+        return toDoItemDto;
     }
 }

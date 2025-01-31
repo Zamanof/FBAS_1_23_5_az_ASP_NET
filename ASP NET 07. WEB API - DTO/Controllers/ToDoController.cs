@@ -34,6 +34,13 @@ public class ToDoController : ControllerBase
         var createdItem = await _service.CreateToDoAsync(request);
         return  createdItem;
     }
+
+    [HttpPatch("{id}/status")]
+    public async Task<ActionResult<ToDoItemDto>> Patch(int id, [FromBody] bool isCompleted)
+    {
+        var toDoItem = await _service.ChangeToDoItemStatusAsync(id, isCompleted);
+        return toDoItem is not null ? toDoItem: NotFound();
+    }
 }
 
 
@@ -63,7 +70,7 @@ public class ToDoController : ControllerBase
        POST     /products                   -> json
 
     Update:                                    
-       PUT     /products/{id}               -> json
+       PATCH    /products/{id}              -> json
 
     Delete:                                    
        DELETE     /products/{id}            -> json
