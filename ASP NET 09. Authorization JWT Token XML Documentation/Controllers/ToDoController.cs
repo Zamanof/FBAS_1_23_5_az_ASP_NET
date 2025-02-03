@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ASP_NET_09._Authorization_JWT_Token_XML_Documentation.Controllers;
 
+
+/// <summary>
+/// ToDo API main Controller
+/// </summary>
 [Route("api/[controller]")]
 [ApiController]
 public class ToDoController : ControllerBase
@@ -36,6 +40,14 @@ public class ToDoController : ControllerBase
         return item is not null ? item : NotFound();
     }
 
+
+    /// <summary>
+    /// Create ToDo Item
+    /// </summary>
+    /// <param name="request"></param>
+    /// <response code="201">Success</response>
+    /// <response code="409">Task already created</response>
+    /// <response code="403">Forbiden</response>
     [HttpPost]
     public async Task<ActionResult<ToDoItemDto>> Post([FromBody] CreateToDoItemRequest request)
     {
@@ -43,6 +55,13 @@ public class ToDoController : ControllerBase
         return  createdItem;
     }
 
+
+    /// <summary>
+    /// Change ToDo Item Status
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="isCompleted"></param>
+    /// <returns>ToDo Item with changed status</returns>
     [HttpPatch("{id}/status")]
     public async Task<ActionResult<ToDoItemDto>> Patch(int id, [FromBody] bool isCompleted)
     {

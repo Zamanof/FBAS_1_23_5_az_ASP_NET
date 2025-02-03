@@ -5,15 +5,26 @@ using ASP_NET_09._Authorization_JWT_Token_XML_Documentation.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ASP_NET_09._Authorization_JWT_Token_XML_Documentation.Services;
-
+/// <summary>
+/// 
+/// </summary>
 public class ToDoService : IToDoService
 {
     private readonly ToDoContext _context;
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="context"></param>
     public ToDoService(ToDoContext context)
     {
         _context = context;
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="isCompleted"></param>
+    /// <returns></returns>
     public Task<ToDoItemDto> ChangeToDoItemStatusAsync(int id, bool isCompleted)
     {
         var toDo = _context.ToDoItems.FirstOrDefault(x => x.Id == id);
@@ -23,7 +34,11 @@ public class ToDoService : IToDoService
         _context.SaveChanges();
         return Task.FromResult(ConvertToDoItemDto(toDo));
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
     public Task<ToDoItemDto> CreateToDoAsync(CreateToDoItemRequest request)
     {
         var item = new ToDoItem()
@@ -37,13 +52,24 @@ public class ToDoService : IToDoService
         _context.SaveChanges();
         return Task.FromResult(ConvertToDoItemDto(item));
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public Task<ToDoItemDto> GetToDoItemAsync(int id)
     {
         var toDo = _context.ToDoItems.FirstOrDefault(t => t.Id == id);
         return Task.FromResult(ConvertToDoItemDto(toDo!))!;
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="page"></param>
+    /// <param name="pageSize"></param>
+    /// <param name="search"></param>
+    /// <param name="isCompleted"></param>
+    /// <returns></returns>
     public async Task<PaginationListDto<ToDoItemDto>> GetToDoItemsAsync(
         int page,
         int pageSize,
