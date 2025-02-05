@@ -2,9 +2,21 @@
 using ASP_NET_09._Authorization_JWT_Token_XML_Documentation.DTOs;
 using ASP_NET_09._Authorization_JWT_Token_XML_Documentation.DTOs.Pagination;
 using ASP_NET_09._Authorization_JWT_Token_XML_Documentation.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASP_NET_09._Authorization_JWT_Token_XML_Documentation.Controllers;
+
+// admin
+// moderator
+// user
+// guest
+
+// admin (CanEdit, CanDelete, CanCreate, CanView)
+// moderator  (CanEdit, CanView)
+// user  (CanView)
+// guest
+// permissons CanEdit, CanDelete, CanCreate, CanView
 
 
 /// <summary>
@@ -12,6 +24,7 @@ namespace ASP_NET_09._Authorization_JWT_Token_XML_Documentation.Controllers;
 /// </summary>
 [Route("api/[controller]")]
 [ApiController]
+
 public class ToDoController : ControllerBase
 {
     private readonly IToDoService _service;
@@ -32,6 +45,8 @@ public class ToDoController : ControllerBase
     /// <param name="filters"></param>
     /// <returns></returns>
     [HttpGet]
+    //[Authorize(Policy = "CanView")]
+    //[Authorize(Roles ="admin, moderator, user")]
     public async Task<ActionResult<PaginationListDto<ToDoItemDto>>> Get(
         [FromQuery] PaginationRequest request,
         [FromQuery] ToDoQueryFilters filters)
@@ -49,6 +64,7 @@ public class ToDoController : ControllerBase
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("{id}")]
+    [Authorize(Policy ="CanView")]
     public async Task<ActionResult<ToDoItemDto>> Get(int id)
     {
         var item = await _service.GetToDoItemAsync(id);
@@ -64,6 +80,8 @@ public class ToDoController : ControllerBase
     /// <response code="409">Task already created</response>
     /// <response code="403">Forbiden</response>
     [HttpPost]
+    //[Authorize(Roles = "admin")]
+    [Authorize(Policy = "CanCreate")]
     public async Task<ActionResult<ToDoItemDto>> Post([FromBody] CreateToDoItemRequest request)
     {
         var createdItem = await _service.CreateToDoAsync(request);
@@ -78,6 +96,8 @@ public class ToDoController : ControllerBase
     /// <param name="isCompleted"></param>
     /// <returns>ToDo Item with changed status</returns>
     [HttpPatch("{id}/status")]
+    //[Authorize(Roles ="admin, moderator")]
+    [Authorize(Policy = "CanEdit")]
     public async Task<ActionResult<ToDoItemDto>> Patch(int id, [FromBody] bool isCompleted)
     {
         var toDoItem = await _service.ChangeToDoItemStatusAsync(id, isCompleted);
