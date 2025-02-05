@@ -16,10 +16,21 @@ public class ToDoController : ControllerBase
 {
     private readonly IToDoService _service;
 
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="service"></param>
     public ToDoController(IToDoService service)
     {
         _service = service;
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="filters"></param>
+    /// <returns></returns>
     [HttpGet]
     public async Task<ActionResult<PaginationListDto<ToDoItemDto>>> Get(
         [FromQuery] PaginationRequest request,
@@ -32,7 +43,11 @@ public class ToDoController : ControllerBase
             filters.isCompleted
             );
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpGet("{id}")]
     public async Task<ActionResult<ToDoItemDto>> Get(int id)
     {

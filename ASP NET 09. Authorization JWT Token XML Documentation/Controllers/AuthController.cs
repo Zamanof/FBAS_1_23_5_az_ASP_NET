@@ -5,7 +5,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
 namespace ASP_NET_09._Authorization_JWT_Token_XML_Documentation.Controllers;
-
+/// <summary>
+/// 
+/// </summary>
 [Route("api/[controller]")]
 [ApiController]
 public class AuthController : ControllerBase
