@@ -1,11 +1,11 @@
 ﻿
-using ASP_NET_09._Authorization_JWT_Token_XML_Documentation.DTOs;
-using ASP_NET_09._Authorization_JWT_Token_XML_Documentation.DTOs.Pagination;
-using ASP_NET_09._Authorization_JWT_Token_XML_Documentation.Services;
+using ASP_NET_11._Identity.DTOs;
+using ASP_NET_11._Identity.DTOs.Pagination;
+using ASP_NET_11._Identity.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ASP_NET_09._Authorization_JWT_Token_XML_Documentation.Controllers;
+namespace ASP_NET_11._Identity.Controllers;
 
 // admin
 // moderator
@@ -24,7 +24,7 @@ namespace ASP_NET_09._Authorization_JWT_Token_XML_Documentation.Controllers;
 /// </summary>
 [Route("api/[controller]")]
 [ApiController]
-
+//[Authorize]
 public class ToDoController : ControllerBase
 {
     private readonly IToDoService _service;
