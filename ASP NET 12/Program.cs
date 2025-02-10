@@ -1,7 +1,7 @@
-using ASP_NET_11._Identity.Data;
-using ASP_NET_11._Identity.DTOs.Auth;
-using ASP_NET_11._Identity.Models;
-using ASP_NET_11._Identity.Services;
+using ASP_NET_12.Data;
+using ASP_NET_12.DTOs.Auth;
+using ASP_NET_12.Models;
+using ASP_NET_12.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -61,7 +61,8 @@ builder.Services.AddSwaggerGen(setup =>
             Title = "ToDo",
             Version = "ver. 2"
         });
-    setup.IncludeXmlComments(@"obj\Debug\net8.0\ASP NET 11. Identity.xml");
+    var filePath = Path.Combine(AppContext.BaseDirectory, "Documentation.xml");
+    setup.IncludeXmlComments(filePath);
     setup.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
         Name = "Authorization",

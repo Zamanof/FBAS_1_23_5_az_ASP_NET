@@ -1,11 +1,11 @@
 ﻿
-using ASP_NET_11._Identity.DTOs;
-using ASP_NET_11._Identity.DTOs.Pagination;
-using ASP_NET_11._Identity.Services;
+using ASP_NET_12.DTOs;
+using ASP_NET_12.DTOs.Pagination;
+using ASP_NET_12.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ASP_NET_11._Identity.Controllers;
+namespace ASP_NET_12.Controllers;
 
 // admin
 // moderator
