@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using System.Text.Json;
 
-namespace ASP_NET_12.DTOs.Auth;
+namespace ASP_NET_12.Auth;
 
 public class CanTestRequirment : IAuthorizationRequirement, IAuthorizationHandler
 {
     public Task HandleAsync(AuthorizationHandlerContext context)
     {
-        var claim = context.User.Claims.FirstOrDefault(c=>c.Type == "permissions");
+        var claim = context.User.Claims.FirstOrDefault(c => c.Type == "permissions");
         if (claim is not null)
         {
             var permissions = JsonSerializer.Deserialize<string[]>(claim.Value);
