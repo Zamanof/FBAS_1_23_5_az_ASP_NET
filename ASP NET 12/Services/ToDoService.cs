@@ -25,9 +25,9 @@ public class ToDoService : IToDoService
     /// <param name="id"></param>
     /// <param name="isCompleted"></param>
     /// <returns></returns>
-    public Task<ToDoItemDto> ChangeToDoItemStatusAsync(int id, bool isCompleted)
+    public Task<ToDoItemDto> ChangeToDoItemStatusAsync(string userId, int id, bool isCompleted)
     {
-        var toDo = _context.ToDoItems.FirstOrDefault(x => x.Id == id);
+        var toDo = _context.ToDoItems.FirstOrDefault(x => x.Id == id && x.UserId == userId);
         if (toDo is null) return null!;
         toDo.IsCompleted = isCompleted;
         toDo.UpdatedAt = DateTime.UtcNow;
@@ -39,28 +39,40 @@ public class ToDoService : IToDoService
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
-    public Task<ToDoItemDto> CreateToDoAsync(CreateToDoItemRequest request)
+    public async Task<ToDoItemDto> CreateToDoAsync(
+        string userId, 
+        CreateToDoItemRequest request)
     {
+        var user = await _context.Users.FindAsync(userId);
+        if (user is null)
+        {
+            throw new KeyNotFoundException();
+        }
+        var now = DateTime.UtcNow;
+
         var item = new ToDoItem()
         {
             Text = request.Text,
-            CreatedAt = DateTime.UtcNow,
-            UpdatedAt = DateTime.UtcNow,
-            IsCompleted = false
+            CreatedAt = now,
+            UpdatedAt = now,
+            IsCompleted = false,
+            UserId = userId
         };
-        _context.ToDoItems.Add(item);
-        _context.SaveChanges();
-        return Task.FromResult(ConvertToDoItemDto(item));
+        item = _context.ToDoItems.Add(item).Entity;
+        await _context.SaveChangesAsync();
+        return ConvertToDoItemDto(item);
     }
     /// <summary>
     /// 
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public Task<ToDoItemDto> GetToDoItemAsync(int id)
+    public async Task<ToDoItemDto> GetToDoItemAsync(string userId, int id)
     {
-        var toDo = _context.ToDoItems.FirstOrDefault(t => t.Id == id);
-        return Task.FromResult(ConvertToDoItemDto(toDo!))!;
+        var item = await _context.ToDoItems.FirstOrDefaultAsync(t=> t.Id == id && t.UserId == userId);
+        return item is not null
+                ?ConvertToDoItemDto(item)
+                :null!;
     }
     /// <summary>
     /// 
@@ -71,12 +83,13 @@ public class ToDoService : IToDoService
     /// <param name="isCompleted"></param>
     /// <returns></returns>
     public async Task<PaginationListDto<ToDoItemDto>> GetToDoItemsAsync(
+        string userId,
         int page,
         int pageSize,
         string? search,
         bool? isCompleted)
     {
-        IQueryable<ToDoItem> query = _context.ToDoItems;
+        IQueryable<ToDoItem> query = _context.ToDoItems.Where(t=> t.UserId == userId);
         if (!string.IsNullOrWhiteSpace(search))
         {
             query = query.Where(item=> item.Text.ToLower().Contains(search));

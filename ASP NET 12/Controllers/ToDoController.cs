@@ -1,6 +1,7 @@
 ﻿
 using ASP_NET_12.DTOs;
 using ASP_NET_12.DTOs.Pagination;
+using ASP_NET_12.Providers;
 using ASP_NET_12.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -28,15 +29,17 @@ namespace ASP_NET_12.Controllers;
 public class ToDoController : ControllerBase
 {
     private readonly IToDoService _service;
+    private readonly IRequestUserProvider _userProvider;
 
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="service"></param>
-    public ToDoController(IToDoService service)
+    public ToDoController(IToDoService service, IRequestUserProvider userProvider)
     {
         _service = service;
+        _userProvider = userProvider;
     }
     /// <summary>
     /// 
@@ -51,7 +54,9 @@ public class ToDoController : ControllerBase
         [FromQuery] PaginationRequest request,
         [FromQuery] ToDoQueryFilters filters)
     {
+        var user = _userProvider.GetUserInfo();
         return await _service.GetToDoItemsAsync(
+            user.Id,
             request.Page,
             request.PageSize,
             filters.Search,
@@ -65,9 +70,11 @@ public class ToDoController : ControllerBase
     /// <returns></returns>
     [HttpGet("{id}")]
     //[Authorize(Policy ="CanView")]
-    public async Task<ActionResult<ToDoItemDto>> Get(int id)
+    public async Task<ActionResult<ToDoItemDto>> Get(
+        int id)
     {
-        var item = await _service.GetToDoItemAsync(id);
+        var user = _userProvider.GetUserInfo();
+        var item = await _service.GetToDoItemAsync(user.Id, id);
         return item is not null ? item : NotFound();
     }
 
@@ -82,9 +89,11 @@ public class ToDoController : ControllerBase
     [HttpPost]
     //[Authorize(Roles = "admin")]
     //[Authorize(Policy = "CanCreate")]
-    public async Task<ActionResult<ToDoItemDto>> Post([FromBody] CreateToDoItemRequest request)
+    public async Task<ActionResult<ToDoItemDto>> Post(
+        [FromBody] CreateToDoItemRequest request)
     {
-        var createdItem = await _service.CreateToDoAsync(request);
+        var user = _userProvider.GetUserInfo();
+        var createdItem = await _service.CreateToDoAsync(user.Id, request);
         return  createdItem;
     }
 
@@ -98,9 +107,12 @@ public class ToDoController : ControllerBase
     [HttpPatch("{id}/status")]
     //[Authorize(Roles ="admin, moderator")]
     //[Authorize(Policy = "CanEdit")]
-    public async Task<ActionResult<ToDoItemDto>> Patch(int id, [FromBody] bool isCompleted)
+    public async Task<ActionResult<ToDoItemDto>> Patch(
+        int id, 
+        [FromBody] bool isCompleted)
     {
-        var toDoItem = await _service.ChangeToDoItemStatusAsync(id, isCompleted);
+        var user = _userProvider.GetUserInfo();
+        var toDoItem = await _service.ChangeToDoItemStatusAsync(user.Id, id, isCompleted);
         return toDoItem is not null ? toDoItem: NotFound();
     }
 }

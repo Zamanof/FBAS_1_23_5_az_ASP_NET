@@ -14,12 +14,16 @@ public class JwtService : IJwtService
         _jwtConfig = jwtConfig;
     }
 
-    public string GenerateSecurityToken(string email, IEnumerable<string> roles, IEnumerable<Claim> userClaims)
+    public string GenerateSecurityToken(
+        string id, string email, 
+        IEnumerable<string> roles, 
+        IEnumerable<Claim> userClaims)
     {
         var claims = new[]
        {
             new Claim (ClaimsIdentity.DefaultNameClaimType, email),
-            new Claim(ClaimsIdentity.DefaultRoleClaimType, string.Join(",", roles))
+            new Claim(ClaimsIdentity.DefaultRoleClaimType, string.Join(",", roles)),
+            new Claim("userId", id)
         }.Concat(userClaims);
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtConfig.Secret));
 

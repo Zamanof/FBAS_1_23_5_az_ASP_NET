@@ -43,7 +43,13 @@ namespace ASP_NET_12.Migrations
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("ToDoItems");
                 });
@@ -265,6 +271,17 @@ namespace ASP_NET_12.Migrations
                     b.HasDiscriminator().HasValue("AppUser");
                 });
 
+            modelBuilder.Entity("ASP_NET_12.Models.ToDoItem", b =>
+                {
+                    b.HasOne("ASP_NET_12.Models.AppUser", "User")
+                        .WithMany("ToDoItems")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -314,6 +331,11 @@ namespace ASP_NET_12.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ASP_NET_12.Models.AppUser", b =>
+                {
+                    b.Navigation("ToDoItems");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,6 +1,7 @@
 ﻿using ASP_NET_12.Auth;
 using ASP_NET_12.Data;
 using ASP_NET_12.Models;
+using ASP_NET_12.Providers;
 using ASP_NET_12.Services.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -54,6 +55,7 @@ public static class DI
                                             this IServiceCollection services,
                                             IConfiguration configuration)
     {
+        services.AddScoped<IRequestUserProvider, RequestUserProvider>();
         services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<ToDoContext>();
 
