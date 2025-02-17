@@ -1,15 +1,15 @@
-﻿using ASP_NET_12.Auth;
-using ASP_NET_12.Data;
-using ASP_NET_12.Models;
-using ASP_NET_12.Providers;
-using ASP_NET_12.Services.Auth;
+﻿using ASP_NET_15._Validation__Fluent_Validation.Auth;
+using ASP_NET_15._Validation__Fluent_Validation.Data;
+using ASP_NET_15._Validation__Fluent_Validation.Models;
+using ASP_NET_15._Validation__Fluent_Validation.Providers;
+using ASP_NET_15._Validation__Fluent_Validation.Services.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 
-namespace ASP_NET_12;
+namespace ASP_NET_15._Validation__Fluent_Validation;
 
 public static class DI
 {
