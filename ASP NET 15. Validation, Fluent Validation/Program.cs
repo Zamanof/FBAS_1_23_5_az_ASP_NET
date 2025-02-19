@@ -28,6 +28,20 @@ builder.Services.AddDbContext<ToDoContext>(
         options.UseSqlServer(builder.Configuration.GetConnectionString("TODO_DBContext"));
     });
 
+builder.Services.AddCors(
+    options => 
+    options.AddPolicy("CORSPolicy",
+        builder =>
+        {
+            builder.AllowAnyMethod()
+                   .AllowAnyHeader()
+                   .WithOrigins("http://localhost:5174")
+                   .AllowCredentials();
+
+        }
+    )
+    );
+
 builder.Services.AddFluentValidationAutoValidation();
 //builder.Services.AddScoped<IValidator<RegisterRequest>, RegisterRequestValidator>();
 //builder.Services.AddScoped<IValidator<LoginRequest>, LoginRequestValidator>();
@@ -41,6 +55,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(x => x.EnablePersistAuthorization());
 }
+
+app.UseCors("CORSPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();
