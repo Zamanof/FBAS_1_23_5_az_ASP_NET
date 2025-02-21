@@ -1,0 +1,6 @@
+@ASP_NET_08._ToDo_WEB_API_Pagination__Filters_HostAddress = http://localhost:5230
+
+GET {{ASP_NET_08._ToDo_WEB_API_Pagination__Filters_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
