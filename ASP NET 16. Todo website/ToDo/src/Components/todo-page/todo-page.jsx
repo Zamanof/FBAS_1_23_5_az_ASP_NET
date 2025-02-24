@@ -15,6 +15,7 @@ const TodoPage =()=>{
     useEffect(() => {
         updateData()
     }, []);
+
     const addItem = (text)=>{
         service.AddItem(text)
             .then(()=>{updateData()})
@@ -26,16 +27,39 @@ const TodoPage =()=>{
         })
     }
 
+    const onChangeStatus = (id, status)=>{
+        console.log(id)
+        service.changeStatus(id, status)
+    }
+
+    const deleteItem = (id)=>{
+        setTasks((tasks)=> tasks.filter((task)=> task.id !== id))
+    }
+
+    const onSearchChange=(text)=>{
+        setSearchText(text)
+    }
+
+    const search = (tasks, searchText) =>{
+        if (searchText.length === 0) return tasks;
+        return tasks.filter((task)=>
+            task.text.toLowerCase().includes(searchText.toLowerCase()))
+    }
+
+    const filteredTasks = search(tasks, searchText)
+
     return(
         <div className="app-todo">
             <AppHeader/>
             <div className={"top-panel d-flex"}>
-                <SearchInput/>
+                <SearchInput placeText={"Search..."} onSearchChange={onSearchChange}/>
                 <StatusFilter text={"All"} active={true}/>
                 <StatusFilter text={"Active"}/>
                 <StatusFilter text={"Done"}/>
             </div>
-            <TaskList tasks={tasks} onDeleted={""} onChecked={""}/>
+            <TaskList tasks={filteredTasks}
+                      onDeleted={deleteItem}
+                      onChecked={onChangeStatus}/>
             <ItemAdd onAdded={addItem}/>
         </div>
 

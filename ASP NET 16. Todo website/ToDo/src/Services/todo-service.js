@@ -77,5 +77,19 @@ class TodoService{
         const result = await resource.json()
         return result.items
     }
+
+    changeStatus(id, status){
+        fetch(`${this._base}/${id}/status`,
+            {
+                method: "PATCH",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('accessToken')}`,
+                    "Content-Type": "application/json"
+                },
+                body: status
+            })
+    }
+
+
 }
 export default TodoService
