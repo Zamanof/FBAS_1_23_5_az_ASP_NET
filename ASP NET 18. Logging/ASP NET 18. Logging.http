@@ -1,0 +1,6 @@
+@ASP_NET_18._Logging_HostAddress = http://localhost:5166
+
+GET {{ASP_NET_18._Logging_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
