@@ -1,6 +1,5 @@
 using ASP_NET_15._Validation__Fluent_Validation;
 using ASP_NET_15._Validation__Fluent_Validation.Data;
-using ASP_NET_15._Validation__Fluent_Validation.DTOs.Auth;
 using ASP_NET_15._Validation__Fluent_Validation.DTOs.Validation;
 using ASP_NET_15._Validation__Fluent_Validation.Services;
 using FluentValidation;
