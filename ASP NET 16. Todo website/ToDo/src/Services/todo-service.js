@@ -1,5 +1,5 @@
 class TodoService{
-    _base = 'https://localhost:5225/api/ToDo'
+    _base = 'http://localhost:5255/api/ToDo'
 
     register = async (e, email, password) => {
         let statusCode;
@@ -53,5 +53,43 @@ class TodoService{
         })
         return statusCode;
     }
+
+    async AddItem(text){
+        return await fetch(this._base, {
+            method: "POST",
+            headers:{
+                "Authorization": `Bearer ${localStorage.getItem('accessToken')}`,
+                "Content-Type": 'application/json'
+            },
+            body: JSON.stringify({text: text})
+        })
+    }
+
+    async getAll(){
+        const resource = await fetch(`${this._base}?page=1&pageSize=100`,
+            {
+                method:"GET",
+                headers:{
+                    "Authorization": `Bearer ${localStorage.getItem('accessToken')}`,
+                    "Content-Type": 'application/json'
+                }
+            })
+        const result = await resource.json()
+        return result.items
+    }
+
+    changeStatus(id, status){
+        fetch(`${this._base}/${id}/status`,
+            {
+                method: "PATCH",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('accessToken')}`,
+                    "Content-Type": "application/json"
+                },
+                body: status
+            })
+    }
+
+
 }
 export default TodoService
