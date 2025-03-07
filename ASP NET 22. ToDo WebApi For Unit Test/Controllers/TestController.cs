@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using System.Collections.Concurrent;
@@ -14,11 +15,13 @@ public class TestController : ControllerBase
 {
     private readonly ILogger<TestController> _logger;
     private readonly IMemoryCache _memoryCache;
+    private readonly RoleManager<IdentityRole> _roleManager;
 
-    public TestController(ILogger<TestController> logger, IMemoryCache memoryCache)
+    public TestController(ILogger<TestController> logger, IMemoryCache memoryCache, RoleManager<IdentityRole> roleManager)
     {
         _logger = logger;
         _memoryCache = memoryCache;
+        _roleManager = roleManager;
     }
 
     //[ResponseCache(Duration = 30)]
@@ -49,5 +52,16 @@ public class TestController : ControllerBase
         //throw new NotImplementedException();
 
         return Ok("It works!!!");
+    }
+
+    [HttpPost("Add Role")]
+    public async Task<ActionResult> AddRole(string roleName)
+    {
+        if (!_roleManager.RoleExistsAsync(roleName).Result)
+        {
+            var role = new IdentityRole(roleName);
+            await _roleManager.CreateAsync(role);
+        }
+        return Ok();
     }
 }

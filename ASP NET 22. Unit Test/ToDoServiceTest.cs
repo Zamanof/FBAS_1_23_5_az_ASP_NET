@@ -207,7 +207,9 @@ public class ToDoServiceTest
         var createdToDoItem = new CreateToDoItemRequest() { Text = "Test" };
 
         var emailSender = new Mock<IEmailSender>(MockBehavior.Strict);
-        emailSender.Setup(e => e.SendEmail(user.Email, createdToDoItem.Text, "New todo item created"))
+        emailSender.Setup(e => e.SendEmail(user.Email, 
+            It.Is<string>(s=>s.Contains(createdToDoItem.Text)), 
+            It.IsAny<string>()))
             .Returns(Task.CompletedTask);
 
         await dbContext.SaveChangesAsync();

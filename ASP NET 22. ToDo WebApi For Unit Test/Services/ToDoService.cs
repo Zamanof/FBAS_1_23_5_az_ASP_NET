@@ -102,6 +102,7 @@ public class ToDoService : IToDoService
         bool? isCompleted)
     {
         IQueryable<ToDoItem> query = _context.ToDoItems.Where(t=> t.UserId == userId);
+        
         if (!string.IsNullOrWhiteSpace(search))
         {
             query = query.Where(item=> item.Text.ToLower().Contains(search));
