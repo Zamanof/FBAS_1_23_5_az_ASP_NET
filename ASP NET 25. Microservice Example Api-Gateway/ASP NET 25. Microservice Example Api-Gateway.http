@@ -1,0 +1,6 @@
+@ASP_NET_25._Microservice_Example_Api_Gateway_HostAddress = http://localhost:5089
+
+GET {{ASP_NET_25._Microservice_Example_Api_Gateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
